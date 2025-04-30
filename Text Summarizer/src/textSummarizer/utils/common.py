@@ -3,35 +3,59 @@ from box.exceptions import BoxValueError
 import yaml
 from src.textSummarizer.logging import logger
 from ensure import ensure_annotations
-from box import configBox
-from pathlib import
+from box import ConfigBox 
 from typing import Any
 from pathlib import Path
 
-@ensure_annotations
-def read_yaml(path_to_yaml: str) -> configBox:
-    """
-    Reads YAML file and returns 
+# @ensure_annotations
+# def read_yaml(path_to_yaml: str) -> ConfigBox:
+#     """
+#     Reads YAML file and returns 
     
-    Args: 
-        path_to_yaml (str): path like input  
-    Raises: 
-        ValueError: if yaml file is empty 
-        e: empty file 
+#     Args: 
+#         path_to_yaml (str): path like input  
+#     Raises: 
+#         ValueError: if yaml file is empty 
+#         e: empty file 
         
-    Returns:
-        configBox: ConfigBox type
+#     Returns:
+#         configBox: ConfigBox type
 
+#     """
+#     try:
+#         with open(path_to_yaml, 'r') as yaml_file:
+#             content = yaml.safe_load(yaml_file)
+#             logger.info(f"YAML file: {path_to_yaml} loaded successfully")
+#             return ConfigBox(content)
+#     except BoxValueError as e:
+#         raise ValueError(f"YAML file: {path_to_yaml} is empty") 
+#     except Exception as e :
+#         raise Exception(f"Error occurred while reading YAML file: {path_to_yaml}") from e
+
+
+@ensure_annotations
+def read_yaml(path_to_yaml: Path) -> ConfigBox:
+    """reads yaml file and returns
+
+    Args:
+        path_to_yaml (str): path like input
+
+    Raises:
+        ValueError: if yaml file is empty
+        e: empty file
+
+    Returns:
+        ConfigBox: ConfigBox type
     """
     try:
-        with open(path_to_yaml, 'r') as yaml_file:
+        with open(path_to_yaml) as yaml_file:
             content = yaml.safe_load(yaml_file)
-            logger.info(f"YAML file: {path_to_yaml} loaded successfully")
-            return configBox(content)
-    except BoxValueError as e:
-        raise ValueError(f"YAML file: {path_to_yaml} is empty") 
-    except Exception as e :
-        raise Exception(f"Error occurred while reading YAML file: {path_to_yaml}") from e
+            logger.info(f"yaml file: {path_to_yaml} loaded successfully")
+            return ConfigBox(content)
+    except BoxValueError:
+        raise ValueError("yaml file is empty")
+    except Exception as e:
+        raise e
     
 def create_directories(path_to_directories: list, verbose: bool = True):
     """
