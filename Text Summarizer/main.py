@@ -1,4 +1,5 @@
 from src.textSummarizer.pipeline.stage_01 import DataIngestionPipeline
+from src.textSummarizer.pipeline.stage_02 import DataValidationPipeline
 from src.textSummarizer.logging import logger
 
 
@@ -7,6 +8,16 @@ try:
     logger.info(f'========================={STAGE_NAME} started=========================')
     data_ingestion = DataIngestionPipeline()
     data_ingestion.main()
+    logger.info(f'========================={STAGE_NAME} completed=========================')
+except Exception as e:
+    logger.exception(f"An error occurred: {e}")
+    raise e
+
+STAGE_NAME = "Data Validation "
+try: 
+    logger.info(f'========================={STAGE_NAME} started=========================')
+    data_validation = DataValidationPipeline()
+    data_validation.main()
     logger.info(f'========================={STAGE_NAME} completed=========================')
 except Exception as e:
     logger.exception(f"An error occurred: {e}")
