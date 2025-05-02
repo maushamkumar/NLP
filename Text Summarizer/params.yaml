@@ -1,1 +1,34 @@
-key: value
+TrainingArguments:
+  num_train_epochs: 1 
+  warmup_steps: 500
+  per_device_train_batch_size: 1 
+  per_device_eval_batch_size: 1
+  weight_decay: 0.01
+  logging_steps: 10 
+  evaluation_strategy: step
+  eval_steps: 500
+  save_steps: 1e6 
+  gradient_accumulation_steps: 16
+
+TrainingArguments:
+  # ––––– basic schedule –––––
+  num_train_epochs: 1
+  warmup_steps: 500
+
+  # ––––– batch sizes –––––
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+
+  # ––––– regularisation & logging –––––
+  weight_decay: 0.01
+  logging_steps: 10
+
+  # ––––– evaluation / saving cadence –––––
+  evaluation_strategy: steps   # plural!
+  eval_steps: 500
+
+  # save_strategy: steps         # explicit → cleaner logs
+  save_steps: 1000000          # keep it an **int**, not 1e6 float
+
+  # ––––– large-batch emulation –––––
+  gradient_accumulation_steps: 16
