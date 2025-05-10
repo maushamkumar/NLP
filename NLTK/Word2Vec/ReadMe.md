@@ -11,3 +11,6 @@ In the parent directory, we have:
 - `train_CBOW.py`: Training script for CBOW architecture.
 - `train_SkipGram.py`: Training script for Skip-Gram architecture.
 - `data.txt`: Contains the training data for our project.
+
+Thanks for reading! 
+I want to add this to the github repository.
